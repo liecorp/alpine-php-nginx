@@ -22,20 +22,20 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apk update \
     && apk add tzdata bash curl ca-certificates sed zip unzip git sqlite libcap libpng \
-        php82-fpm php82-soap php82-openssl php82-gmp php82-pdo_odbc php82-json \
-        php82-dom php82-pdo php82-zip php82-mysqli php82-sqlite3 php82-apcu \
-        php82-pdo_pgsql php82-bcmath php82-gd php82-odbc php82-pdo_mysql \
-        php82-pdo_sqlite php82-gettext php82-xmlreader php82-bz2 php82-iconv \
-        php82-pdo_dblib php82-curl php82-ctype composer \
+        php83-fpm php83-soap php83-openssl php83-gmp php83-pdo_odbc php83-json \
+        php83-dom php83-pdo php83-zip php83-mysqli php83-sqlite3 php83-apcu \
+        php83-pdo_pgsql php83-bcmath php83-gd php83-odbc php83-pdo_mysql \
+        php83-pdo_sqlite php83-gettext php83-xmlreader php83-bz2 php83-iconv \
+        php83-pdo_dblib php83-curl php83-ctype php83-session php83-tokenizer composer \
         nginx supervisor \
     && composer global require --quiet --no-ansi laravel/envoy \
     && composer clear-cache --quiet \
     && ln -s /root/.composer/vendor/laravel/envoy/bin/envoy /usr/local/bin/envoy
 
-RUN sed -i "s|;*date.timezone =.*|date.timezone = ${TZ}|i" /etc/php82/php.ini
+RUN sed -i "s|;*date.timezone =.*|date.timezone = ${TZ}|i" /etc/php83/php.ini
 
 # PHP-FPM packages need a nudge to make them docker-friendly
-COPY overrides.conf /etc/php82/php-fpm.d/z-overrides.conf
+COPY overrides.conf /etc/php83/php-fpm.d/z-overrides.conf
 
 # PHP-FPM has really dirty logs, certainly not good for dockerising
 # The following startup script contains some magic to clean these up
