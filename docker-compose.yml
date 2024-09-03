@@ -1,0 +1,12 @@
+# Example implementation of 
+services:
+  php-nginx:
+    image: 'liehendr/alpine-php/nginx:8.3'
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - '${DB_PORT:-8080}:80'
+    volumes:
+      - './site:/var/www/'
+
