@@ -1,22 +1,11 @@
 FROM alpine:3.20
 
-LABEL org.opencontainers.image.source=https://github.com/liehendr/alpine-php-nginx
+LABEL org.opencontainers.image.source=https://github.com/liehendr/php-nginx/alpine
 
 # ENV DEBIAN_FRONTEND=noninteractive
 
 ENV TERM=linux
 ENV TZ=UTC
-ENV PHP_FPM_USER="worker"
-ENV PHP_FPM_GROUP="worker"
-ENV PHP_FPM_LISTEN_MODE="0660"
-ENV PHP_MEMORY_LIMIT="512M"
-ENV PHP_MAX_UPLOAD="50M"
-ENV PHP_MAX_FILE_UPLOAD="200"
-ENV PHP_MAX_POST="100M"
-ENV PHP_DISPLAY_ERRORS="On"
-ENV PHP_DISPLAY_STARTUP_ERRORS="On"
-ENV PHP_ERROR_REPORTING="E_COMPILE_ERROR\|E_RECOVERABLE_ERROR\|E_ERROR\|E_CORE_ERROR"
-ENV PHP_CGI_FIX_PATHINFO=0
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -57,10 +46,6 @@ WORKDIR /var/www
 # Add a non-root user to prevent files being created with root permissions on host machine.
 ARG USER_CONTAINER=worker
 ENV USER_CONTAINER=${USER_CONTAINER}
-# ARG PUID=1000
-# ENV PUID=${PUID}
-# ARG PGID=1000
-# ENV PGID=${PGID}
 
 RUN adduser -D ${USER_CONTAINER} ${USER_CONTAINER}
 
