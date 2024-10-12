@@ -1,6 +1,6 @@
 FROM alpine:3.20
 
-LABEL org.opencontainers.image.source=https://github.com/liehendr/php-nginx/alpine
+LABEL org.opencontainers.image.source=https://github.com/liecorp/php-nginx
 
 # ENV DEBIAN_FRONTEND=noninteractive
 
