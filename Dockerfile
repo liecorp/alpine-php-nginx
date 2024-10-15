@@ -2,8 +2,6 @@ FROM alpine:3.20
 
 LABEL org.opencontainers.image.source=https://github.com/liecorp/php-nginx
 
-# ENV DEBIAN_FRONTEND=noninteractive
-
 ENV TERM=linux
 ENV TZ=UTC
 
@@ -44,10 +42,10 @@ COPY supervisor /etc/supervisor
 WORKDIR /var/www
 
 # Add a non-root user to prevent files being created with root permissions on host machine.
-ARG USER_CONTAINER=worker
-ENV USER_CONTAINER=${USER_CONTAINER}
+ONBUILD ARG USER_CONTAINER=worker
+ONBUILD ENV USER_CONTAINER=${USER_CONTAINER}
 
-RUN adduser -D ${USER_CONTAINER} ${USER_CONTAINER}
+ONBUILD RUN adduser -D ${USER_CONTAINER} ${USER_CONTAINER}
 
 EXPOSE 80
 
